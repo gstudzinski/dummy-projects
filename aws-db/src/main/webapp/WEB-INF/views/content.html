@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>DB web - devops upskill</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+
+<div  th:unless="${#lists.isEmpty(allUsers)}">
+    <h1>DB App (devops upskill)</h1>
+
+    <h2>list of users (count: <span th:text="${allUsers.size()}"></span>)</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${allUsers}">
+            <td th:text="${{u.id}}"></td>
+            <td th:text="${{u.name}}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</body>
+</html>

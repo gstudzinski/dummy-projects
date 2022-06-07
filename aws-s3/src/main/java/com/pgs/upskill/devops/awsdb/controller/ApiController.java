@@ -15,6 +15,11 @@ public class ApiController {
 
     S3UrlService s3UrlService;
 
+    @GetMapping("/health")
+    String health() {
+        return "OK";
+    }
+
     @GetMapping("/s3-url")
     String s3PresignedUrl(@RequestParam String fileName, @RequestParam String type) {
         return s3UrlService.generatePresignedUrl(fileName, type);

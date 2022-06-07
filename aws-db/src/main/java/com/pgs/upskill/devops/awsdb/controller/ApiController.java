@@ -15,6 +15,11 @@ public class ApiController {
 
     UserRepository userRepository;
 
+    @GetMapping("/health")
+    String health() {
+        return "OK";
+    }
+
     @GetMapping("/users")
     Iterable<User> all() {
         return userRepository.findAll();

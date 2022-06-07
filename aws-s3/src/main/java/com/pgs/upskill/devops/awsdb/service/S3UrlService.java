@@ -4,6 +4,7 @@ import com.pgs.upskill.devops.awsdb.properties.S3Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -21,9 +22,12 @@ public class S3UrlService {
     public S3UrlService(S3Properties properties) {
         this.properties = properties;
         Region region = Region.of(properties.getRegion());
+        var credentialProvider = properties.isAccessByProfile()
+                ? InstanceProfileCredentialsProvider.create()
+                : EnvironmentVariableCredentialsProvider.create();
         s3Presigner = S3Presigner.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .credentialsProvider(credentialProvider)
                 .build();
     }
 

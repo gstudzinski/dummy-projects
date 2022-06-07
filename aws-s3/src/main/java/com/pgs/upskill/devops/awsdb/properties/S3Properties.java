@@ -13,4 +13,5 @@ import software.amazon.awssdk.regions.Region;
 public class S3Properties {
     private String bucket;
     private String region;
+    private boolean accessByProfile;
 }

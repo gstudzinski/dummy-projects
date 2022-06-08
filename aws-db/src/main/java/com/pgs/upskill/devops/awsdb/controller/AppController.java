@@ -18,7 +18,7 @@ public class AppController {
         return userRepository.findAll();
     }
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"/","/index.html"})
     public String content() {
         return "content";
     }

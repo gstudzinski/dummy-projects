@@ -23,7 +23,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/api/s3-url?fileName=' + fileName + '&type=' + type,
+                url: '/s3/api/s3-url?fileName=' + fileName + '&type=' + type,
 
             })
             .done(function(data, textStatus, jqXHR) {

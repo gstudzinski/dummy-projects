@@ -23,7 +23,7 @@ public class S3UrlService {
         this.properties = properties;
         Region region = Region.of(properties.getRegion());
         var credentialProvider = properties.isAccessByProfile()
-                ? InstanceProfileCredentialsProvider.create()
+                ? null
                 : EnvironmentVariableCredentialsProvider.create();
         s3Presigner = S3Presigner.builder()
                 .region(region)

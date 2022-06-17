@@ -22,13 +22,11 @@ public class S3UrlService {
     public S3UrlService(S3Properties properties) {
         this.properties = properties;
         Region region = Region.of(properties.getRegion());
-        var credentialProvider = properties.isAccessByProfile()
-                ? null
-                : EnvironmentVariableCredentialsProvider.create();
-        s3Presigner = S3Presigner.builder()
-                .region(region)
-                .credentialsProvider(credentialProvider)
-                .build();
+        var s3PresignerBuilder = S3Presigner.builder().region(region);
+        if (!properties.isAccessByProfile()) {
+            s3PresignerBuilder.credentialsProvider(EnvironmentVariableCredentialsProvider.create());
+        }
+        s3Presigner = s3PresignerBuilder.build();
     }
 
     public String generatePresignedUrl(String fileName, String type) {

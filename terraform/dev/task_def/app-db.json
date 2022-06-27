@@ -1,0 +1,42 @@
+[
+  {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/gst-dev-app-db-tf",
+        "awslogs-region": "eu-west-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "portMappings": [
+      {
+        "hostPort": 8080,
+        "protocol": "tcp",
+        "containerPort": 8080
+      },
+      {
+        "hostPort": 22,
+        "protocol": "tcp",
+        "containerPort": 22
+      }
+    ],
+    "cpu": 512,
+    "memoryReservation": 756,
+    "environment": [
+      {
+        "name": "DB_HOST",
+        "value": "gst-dev-rds-tf.cn10audml9ef.eu-west-1.rds.amazonaws.com"
+      },
+      {
+        "name": "DB_PASS",
+        "value": "user_secret_pw"
+      },
+      {
+        "name": "SSH_PUBLIC_KEY",
+        "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCr+6RHbvURKrjJgTHFUS6pNnu0zI4QZ+i2jH4frEPX0JO/zwOghDMtwQmkoqcxEaXf3+7Fm4JAmz+pYOA4m7H8H+Jr4k1PquiQbrxNu2dX93Z44Aa13x+TslKYy1nnONNDAPxou0tLpBzXCpFwvJCf29JlTMbRosp/Bqazxeuo1gUdgRCYQ2IJwbbV3rhZc81zHb8LRAsq+MMQKayS/frft64t2A+cleMAthxvRukBRUx0J6n/RZPNqXKVrFPqk8ODppDJNibfk0Gc2TKe2A9KMZFLIfUPfbYZIrFGOduOSWMSQW4r6HLU3qJbnZrc9LcN8zS1OnUNhn5RZghDw3oD"
+      }
+    ],
+    "image": "890769921003.dkr.ecr.eu-west-1.amazonaws.com/aws-db",
+    "name": "aws-db"
+  }
+]

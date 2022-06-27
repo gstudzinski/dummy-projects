@@ -1,0 +1,33 @@
+[
+  {
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/gst-dev-app-s3-tf",
+        "awslogs-region": "eu-west-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "portMappings": [
+      {
+        "hostPort": 8081,
+        "protocol": "tcp",
+        "containerPort": 8081
+      }
+    ],
+    "cpu": 512,
+    "memoryReservation": 756,
+    "environment": [
+      {
+        "name": "DB_APP_URL",
+        "value": "http://app-db-svc-tf.gst-dev.local:8080/db"
+      },
+      {
+        "name": "S3_ACCESS_BY_PROFILE",
+        "value": "true"
+      }
+    ],
+    "image": "890769921003.dkr.ecr.eu-west-1.amazonaws.com/aws-s3",
+    "name": "aws-s3"
+  }
+]

@@ -1,8 +1,3 @@
-locals {
-  region = var.region
-  environment = "dev"
-}
-
 terraform {
   required_providers {
     aws = {
@@ -20,5 +15,5 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = local.region
+  region = "eu-west-1"
 }

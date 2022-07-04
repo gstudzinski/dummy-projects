@@ -1,0 +1,33 @@
+stages:
+  - build_and_test
+
+.only_run_on_master:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME != "master"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+
+variables:
+  TAG: "${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}-${CI_PIPELINE_ID}"
+  MAVEN_OPTS: "-Djava.awt.headless=true -Dmaven.repo.local=./.m2/repository"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
+
+cache:
+  paths:
+    - ./.m2/repository
+  # keep cache across branch
+  key: "$CI_BUILD_REF_NAME"
+
+build and test:
+  image: openjdk:17.0-jdk-slim
+  stage: build_and_test
+  script:    
+    - cd aws-db
+    - ./mvnw clean verify $MAVEN_CLI_OPTS      
+  artifacts:
+    paths:
+	  - "**/target/"
+      - "**/target/surefire-reports/*"
+      - "**/target/site/*"
+    when: always
+	

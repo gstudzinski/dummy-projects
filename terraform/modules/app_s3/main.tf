@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "this" {
 
   requires_compatibilities = ["FARGATE"]
 
-  task_role_arn = data.aws_iam_role.this.arn
-  execution_role_arn = data.aws_iam_role.this.arn
+  task_role_arn = var.ecs_execution_task_role_arn
+  execution_role_arn = var.ecs_execution_task_role_arn
 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -98,10 +98,6 @@ module "security_group" {
   egress_rules = [ "all-all" ]
 
   tags = var.tags
-}
-
-data "aws_iam_role" "this" {
-  name = "gstudzinski_ecsTaskExecutionRole_ext"
 }
 
 resource "aws_cloudwatch_log_group" "this" {

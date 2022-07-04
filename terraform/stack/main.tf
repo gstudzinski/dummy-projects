@@ -36,6 +36,12 @@ module "rds_db" {
   tags = local.tags
 }
 
+module "iam" {
+  source  = "../modules/iam"
+
+  mod_prefix = local.mod_prefix
+}
+
 module "ecs_cluster" {
   source  = "../modules/ecs_cluster"
 
@@ -84,6 +90,8 @@ module "app_db" {
   private_subnets = module.vpc.private_subnets
   ecs_cluster_id = module.ecs_cluster.cluster_id
 
+  ecs_execution_task_role_arn = module.iam.ecs_execution_task_role_arn
+
   service_discovery_namespace_id = module.ecs_cluster.service_discovery_namespace_id
 
   target_group_arn = module.alb.target_group_arns[0]
@@ -107,6 +115,8 @@ module "app_s3" {
   vpc_cidr = var.vpc_cidr
   private_subnets = module.vpc.private_subnets
   ecs_cluster_id = module.ecs_cluster.cluster_id
+
+  ecs_execution_task_role_arn = module.iam.ecs_execution_task_role_arn
 
   service_discovery_namespace_id = module.ecs_cluster.service_discovery_namespace_id
 

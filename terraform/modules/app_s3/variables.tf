@@ -47,3 +47,6 @@ variable app_db_svc_port {
   type = number
 }
 
+variable ecs_execution_task_role_arn {
+  type = string
+}

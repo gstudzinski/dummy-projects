@@ -46,3 +46,7 @@ variable db_host {
 variable db_password {
   type = string
 }
+
+variable ecs_execution_task_role_arn {
+  type = string
+}
